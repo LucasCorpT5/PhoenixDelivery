@@ -33,13 +33,11 @@
     <h1>{{i}}</h1>
     <p>Escolha no mínimo {{i.minimo}} e no máximo {{i.maximo}} {{i}}</p>
         {%for j in i.opcoes.all%}
-            {%if j.ativo%}
                 <div>
                 <input type="checkbox" class="checkbox" name="{{i}}" value={{j.id}}>
                 <label for="scales">&nbsp&nbsp&nbsp{{j}} + R${{j.acrecimo}}</label>
                 </div>
                 <br>
-            {%endif%}
         {%endfor%}
     {% endfor %}
     <h1 class="titulo subTituloProduto">Observações: </h1>
