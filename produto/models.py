@@ -5,6 +5,7 @@ from django.utils.safestring import mark_safe
 # Create your models here.
 class Categoria(models.Model):
     categoria = models.CharField(max_length=100)
+    ativo = models.BooleanField(default=True)
     
     def __str__(self):
         return self.categoria
@@ -12,6 +13,7 @@ class Categoria(models.Model):
 class Opcoes(models.Model):
     nome = models.CharField(max_length=200)
     acrecimo = models.FloatField(default=0)
+    ativo = models.BooleanField(default=True)
 
     def __str__(self):
         return self.nome
@@ -21,6 +23,7 @@ class Adicional(models.Model):
     maximo = models.IntegerField()
     minimo = models.IntegerField()
     opcoes = models.ManyToManyField(Opcoes)
+    ativo = models.BooleanField(default=True)
 
     def __str__(self):
         return self.nome
