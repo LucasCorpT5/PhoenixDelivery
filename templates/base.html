@@ -11,7 +11,7 @@
     {% block 'head'%}
 
     {% endblock %}
-    <title>Fondue delícia</title>
+    <title>Phoenix Delivery</title>
 
   </head>
   <body>
@@ -35,7 +35,9 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             
-                <a class="dropdown-item" href="#">categoria 1</a>
+                {% for i in categorias%}
+                    <a class="dropdown-item" href="#">{{i}}</a>
+                {% endfor %}
                
               </div>
             </li>

@@ -9,6 +9,6 @@ def home(request):
         request.session.save()
     produtos = Produto.objects.all()
     categorias = Categoria.objects.all()
-    print(produtos[0].img)
+    # print(produtos[0].img)s
     return render(request, 'home.html', {'produtos': produtos, 
     'carrinho': len(request.session['carrinho']), 'categorias': categorias})
