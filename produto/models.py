@@ -13,11 +13,17 @@ class Opcoes(models.Model):
     nome = models.CharField(max_length=200)
     acrecimo = models.FloatField(default=0)
 
+    def __str__(self):
+        return self.nome
+
 class Adicional(models.Model):
     nome = models.CharField(max_length=100, unique=True)
     maximo = models.IntegerField()
     minimo = models.IntegerField()
     opcoes = models.ManyToManyField(Opcoes)
+
+    def __str__(self):
+        return self.nome
 
 class Produto(models.Model):
     nome_produto = models.CharField(max_length=200)
