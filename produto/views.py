@@ -3,5 +3,12 @@ from django.http import HttpResponse
 from .models import *
 
 # Create your views here.
-def home(requests):
-    return render(requests, 'home.html', {'nome': 'Lucas'})
+def home(request):
+    if not request.session.get("carrinho"):
+        request.session['carrinho'] = []
+        request.session.save()
+    produtos = Produto.objects.all()
+    categorias = Categoria.objects.all()
+    print(produtos[0].img)
+    return render(request, 'home.html', {'produtos': produtos, 
+    'carrinho': len(request.session['carrinho']), 'categorias': categorias})
