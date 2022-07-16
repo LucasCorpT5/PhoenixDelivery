@@ -15,7 +15,7 @@
                 <h5 style="width: 350px; color: gray;" class="descricao bordaBottom">{{produto.descricao}}</h5>
                 <h1 class="rosa">R$ {{produto.preco}}0</h1>
                 <br>
-                <a style="margin-top: 20px;" href="" class="botao">Adicionar ao carrinho</a>
+                <a style="margin-top: 20px;" href="{% url 'produto' produto.id %}" class="botao">Adicionar ao carrinho</a>
                 <br>
             </div>
       {% endif %}
