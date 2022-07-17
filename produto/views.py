@@ -60,3 +60,12 @@ def add_carrinho(request):
 
     for i in adicionais_verifica:
         encontrou = False
+        minimo = i.minimo
+        maximo = i.maximo
+        for j in adicionais:
+            if i.nome == j[0]:
+                encontrou = True
+                if len(j[1]) < minimo or len(j[1]) > maximo:
+                    aprovado = False
+        if minimo > 0 and encontrou == False:
+            aprovado = False
