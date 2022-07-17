@@ -37,5 +37,10 @@ def produto(request, id):
                                             'erro': erro})
 
 def add_carrinho(request):
-    x = request.POST
-    return HttpResponse(x['id'])
+    if not request.session.get('carrinho'):
+        request.session['carrinho'] = []
+        request.session.save()
+
+    x = dict(request.POST)
+    def removeLixo(adicional):
+        pass
