@@ -37,4 +37,5 @@ def produto(request, id):
                                             'erro': erro})
 
 def add_carrinho(request):
-    return HttpResponse("1")
+    x = request.POST
+    return HttpResponse(x['id'])
