@@ -35,3 +35,6 @@ def produto(request, id):
                                             'carrinho': len(request.session['carrinho']),
                                             'categorias': categorias,
                                             'erro': erro})
+
+def add_carrinho(request):
+    pass
