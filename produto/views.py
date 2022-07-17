@@ -73,6 +73,8 @@ def add_carrinho(request):
         if not aprovado:
             return redirect(f'/produto/{id}?erro=1')
         
+        # descompactando os adicionais
         for i, j in adicionais:
             for k in j:
-                pass
+                preco_total = Opcoes.objects.filter(id=int(k))[0].acrecimo # filtrando o total do acrecimo + o produto
+                
