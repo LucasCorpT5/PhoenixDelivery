@@ -42,5 +42,16 @@ def add_carrinho(request):
         request.session.save()
 
     x = dict(request.POST)
-    def removeLixo(adicional):
-        pass
+    def removeLixo():
+        adicionais = x.copy() # o copy cria outra referencia de lista
+        adicionais.pop('id')
+        adicionais.pop('csrfmiddlewaretoken')
+        adicionais.pop('observacoes')
+        adicionais.pop('quantidade')
+        adicionais = list(adicionais.items())
+
+        return adicionais
+    
+    adicionais = removeLixo()
+    id = int(x[id][0])
+    preco_total = Produto.objects.filter(id=id)[0].preco
