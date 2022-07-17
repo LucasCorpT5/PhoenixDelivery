@@ -53,5 +53,10 @@ def add_carrinho(request):
         return adicionais
     
     adicionais = removeLixo()
-    id = int(x[id][0])
-    preco_total = Produto.objects.filter(id=id)[0].preco
+    id = int(x['id'][0])
+    preco_total = Produto.objects.filter(id=id)[0].preco # pegando o preco de um produto
+    adicionais_verifica = Adicional.objects.filter(produto = id)
+    aprovado = True
+
+    for i in adicionais_verifica:
+        encontrou = False
