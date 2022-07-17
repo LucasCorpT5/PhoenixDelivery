@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from .models import *
 
@@ -69,3 +69,10 @@ def add_carrinho(request):
                     aprovado = False
         if minimo > 0 and encontrou == False:
             aprovado = False
+        
+        if not aprovado:
+            return redirect(f'/produto/{id}?erro=1')
+        
+        for i, j in adicionais:
+            for k in j:
+                pass
