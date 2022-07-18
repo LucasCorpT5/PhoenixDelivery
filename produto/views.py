@@ -101,4 +101,8 @@ def add_carrinho(request):
 
     request.session['carrinho'].append(data)
     request.session.save()
-    return HttpResponse(request.session['carrinho'])
+    
+    return redirect(f'/ver_carrinho')
+
+def ver_carrinho(request):
+    pass
