@@ -110,10 +110,17 @@ def ver_carrinho(request):
     for i in request.session['carrinho']:
         prod = Produto.objects.filter(id=i['id_produto'])
         dados_mostrar.append(
-            {'imagem': prod[0].img_url,
+            {'imagem': prod[0].img.url,
              'nome': prod[0].nome_produto,
              'quantidade': i['quantidade'],
              'preco': i['preco'],
              'id': i['id_produto']
             }
         )
+        print(dados_mostrar)
+    total = sum([float(i['preco']) for i in request.session['carrinho']]) # calculando o total da soma do preço de todos os produtos dentro do carrinho, o sum soma todos os itens da lista
+
+    return render(request, 'carrinho.html', {'dados': dados_mostrar,
+                                            'total': total,
+                                            'carrinho': len(request.session['carrinho']),
+                                            'categorias': categorias})
