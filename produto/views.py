@@ -126,5 +126,7 @@ def ver_carrinho(request):
                                             'categorias': categorias})
 
 
-def remover_carrinho(request):
-    pass
+def remover_carrinho(request, id):
+    request.session['carrinho'].pop(id)
+    request.session.save()
+    return redirect('/ver_carrinho')
