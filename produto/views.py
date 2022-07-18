@@ -105,4 +105,8 @@ def add_carrinho(request):
     return redirect(f'/ver_carrinho')
 
 def ver_carrinho(request):
-    pass
+    categorias = Categoria.objects.all()
+    dados_mostrar = []
+    for i in request.session['carrinho']:
+        prod = Produto.objects.filter(id=i['id_produto'])
+        
