@@ -91,3 +91,14 @@ def add_carrinho(request):
     adicionais = troca_id_por_nome_adicional(adicionais)
 
     preco_total *= int(x['quantidade'][0])
+
+    data = {'id_produto': int(x['id'][0]),
+            'observacoes': x['observacoes'][0],
+            'preco': preco_total,
+            'adicionais': adicionais,
+            'quantidade': x['quantidade'][0]
+            }
+
+    request.session['carrinho'].append(data)
+    request.session.save()
+    return HttpResponse(request.session['carrinho'])
