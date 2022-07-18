@@ -76,5 +76,18 @@ def add_carrinho(request):
         # descompactando os adicionais
         for i, j in adicionais:
             for k in j:
-                preco_total = Opcoes.objects.filter(id=int(k))[0].acrecimo # filtrando o total do acrecimo + o produto
-                
+                preco_total += Opcoes.objects.filter(id=int(k))[0].acrecimo # filtrando o total do acrecimo + o produto
+    
+    def troca_id_por_nome_adicional(adicional):
+        adicionais_com_nomes = []
+        for i in adicionais:
+            opcoes = []
+            for j in i[1]:
+                op = Opcoes.objects.filter(id = int(j))[0].nome
+                opcoes.append(op)
+            adicionais_com_nomes.append((i[0], opcoes))
+        return adicionais_com_nomes
+
+    adicionais = troca_id_por_nome_adicional(adicionais)
+
+    preco_total *= int(x['quantidade'][0])
