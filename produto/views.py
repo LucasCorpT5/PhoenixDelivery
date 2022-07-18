@@ -124,3 +124,7 @@ def ver_carrinho(request):
                                             'total': total,
                                             'carrinho': len(request.session['carrinho']),
                                             'categorias': categorias})
+
+
+def remover_carrinho(request):
+    pass
