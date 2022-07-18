@@ -22,7 +22,7 @@
         <td>{{i.nome}}</td>
         <td>{{i.quantidade}}</td>
         <td>R${{i.preco}}0</td>
-        <td><a href="" class="btn btn-danger">Remover</a></td>
+        <td><a href="{% url 'remover_carrinho' %}" class="btn btn-danger">Remover</a></td>
       </tr>
       {% endfor %}
     </tbody>
