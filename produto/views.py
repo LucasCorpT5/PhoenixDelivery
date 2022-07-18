@@ -109,4 +109,11 @@ def ver_carrinho(request):
     dados_mostrar = []
     for i in request.session['carrinho']:
         prod = Produto.objects.filter(id=i['id_produto'])
-        
+        dados_mostrar.append(
+            {'imagem': prod[0].img_url,
+             'nome': prod[0].nome_produto,
+             'quantidade': i['quantidade'],
+             'preco': i['preco'],
+             'id': i['id_produto']
+            }
+        )
