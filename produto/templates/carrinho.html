@@ -31,7 +31,7 @@
   <h3>Frete: R${{frete}}0</h3>
   <h1 class="titulo">Total: </h1>
   <h2 style="color: gray;">R${{total}}0</h2>
-  <a href="" class="btn btn-success">Finalizar compra</a>
+  <a href="{% url 'finalizar_pedido' %}" class="btn btn-success">Finalizar compra</a>
   <a href="{% url 'home'%}" class="btn btn-primary">Continuar comprando</a>
   <a href="{% url 'remover_carrinho_tudo' %}" class="btn btn-danger">Remover Tudo</a>
 </div>

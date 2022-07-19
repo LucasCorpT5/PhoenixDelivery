@@ -1,7 +1,12 @@
 from django.contrib import admin
-from .models import Pedido, ItemPedido
+from .models import CupomDesconto, Pedido, ItemPedido
 
 # Register your models here.
+@admin.register(CupomDesconto)
+class CupomDesconto(admin.ModelAdmin):
+    list_display = ('codigo', 'desconto', 'ativo')
+    readonly_fields = ('usos',)
+
 class itemPedidoInline(admin.TabularInline):
     readonly_fields = ('produto', 'quantidade', 'preco', 'descricao', 'adicionais',)
     model = ItemPedido
