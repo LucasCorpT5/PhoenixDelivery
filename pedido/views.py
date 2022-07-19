@@ -7,7 +7,7 @@ def finalizar_pedido(request):
     if request.method == "GET":
         categorias = Categoria.objects.all()
         erro = request.GET.get('erro')
-    
+        total = sum()
 
 def validaCupom(request):
     pass
