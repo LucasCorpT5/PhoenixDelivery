@@ -6,6 +6,8 @@ from produto.models import Categoria
 def finalizar_pedido(request):
     if request.method == "GET":
         categorias = Categoria.objects.all()
+        erro = request.GET.get('erro')
+    
 
 def validaCupom(request):
     pass
