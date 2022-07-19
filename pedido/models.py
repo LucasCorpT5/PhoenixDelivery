@@ -16,6 +16,7 @@ class Pedido(models.Model):
     usuario = models.CharField(max_length=200)
     total = models.FloatField()
     troco = models.CharField(blank=True, max_length=20)
+    cupom = models.ForeignKey(CupomDesconto, null=True, blank=True, on_delete=models.CASCADE)
     pagamento = models.CharField(max_length=20)
     ponto_referencia = models.CharField(max_length=2000, blank=True)
     data = models.DateTimeField(default=datetime.now())
