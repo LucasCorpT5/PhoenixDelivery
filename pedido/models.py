@@ -3,6 +3,15 @@ from datetime import datetime
 from produto.models import Produto
 
 # Create your models here.
+class CupomDesconto(models.Model):
+    codigo = models.CharField(max_length=8, unique=True)
+    desconto = models.FloatField()
+    usos = models.IntegerField(default=0)
+    ativo = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.codigo
+
 class Pedido(models.Model):
     usuario = models.CharField(max_length=200)
     total = models.FloatField()
