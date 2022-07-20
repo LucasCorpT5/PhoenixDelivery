@@ -18,7 +18,7 @@ def finalizar_pedido(request):
                     })
     else:
         if len(request.session['carrinho']) > 0:
-            x = request.POST
+            x = request.POST # todos os inputs do formulario
             total = sum([float(i['preco']) for i in request.session['carrinho']])
             cupom = CupomDesconto.objects.filter(codigo=x['cupom'])
             cupom_salvar = None
