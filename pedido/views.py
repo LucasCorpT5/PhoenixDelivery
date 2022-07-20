@@ -14,6 +14,11 @@ def finalizar_pedido(request):
                     'total': total,
                     'erro': erro
                     })
+    else:
+        if len(request.session['carrinho']) > 0:
+            x = request.POST
+            total = sum([float(i['preco']) for i in request.session['carrinho']])
+            
 
 def validaCupom(request):
     pass
