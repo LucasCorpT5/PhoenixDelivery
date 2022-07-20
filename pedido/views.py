@@ -7,7 +7,13 @@ def finalizar_pedido(request):
     if request.method == "GET":
         categorias = Categoria.objects.all()
         erro = request.GET.get('erro')
-        total = sum()
+        total = sum([float(i['preco']) for i in request.session['carrinho']])
+        return render(request, 'finalizar_pedido.html', {
+                    'carrinho': len(request.session['carrinho']),
+                    'categorias': categorias,
+                    'total': total,
+                    'erro': erro
+                    })
 
 def validaCupom(request):
     pass
