@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from pedido.models import Pedido, CupomDesconto, ItemPedido
-from produto.models import Categoria
+from produto.models import Categoria, Produto
 
 # Create your views here.
 def finalizar_pedido(request):
@@ -22,6 +22,17 @@ def finalizar_pedido(request):
             cupom_salvar = None
             if len(cupom) > 0 and cupom[0].ativo:
                 total = total - ((total*cupom[0].desconto)/100)
+                cupom[0].usos += 1
+                cupom[0].save()
+                cupom_salvar = cupom[0]
 
+            carrinho = request.session.get('carrinho')
+            listaCarrinho = []
+            for i in carrinho:
+                listaCarrinho.append({
+                    'produto': Produto.objects.filter(id=i['id_produto'])[0],
+                    'observacoes': i['observacoes'],
+                    
+                })
 def validaCupom(request):
     pass
