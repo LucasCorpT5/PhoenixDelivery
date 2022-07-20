@@ -85,6 +85,6 @@ def validaCupom(request):
                                 'desconto': desconto,
                                 'total_com_desconto': str(total_com_desconto).replace('.', ',')
         })
-        return HttpResponse()
+        return HttpResponse(data_json)
     else:
         return HttpResponse(json.dumps({'status': 1}))
