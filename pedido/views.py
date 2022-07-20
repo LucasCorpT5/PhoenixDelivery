@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.http import Http404, HttpResponse
+from django.shortcuts import redirect, render
 from pedido.models import Pedido, CupomDesconto, ItemPedido
 from produto.models import Categoria, Produto
+import json
 
 # Create your views here.
 def finalizar_pedido(request):
@@ -32,7 +34,57 @@ def finalizar_pedido(request):
                 listaCarrinho.append({
                     'produto': Produto.objects.filter(id=i['id_produto'])[0],
                     'observacoes': i['observacoes'],
-                    
+                    'preco': i['preco'],
+                    'adicionais': i['adicionais'],
+                    'quantidade': i['quantidade']
                 })
+
+            lambda_func_troco = lambda x: int(x['troco_para'])-total if not x['troco_para'] == '' else ""
+            lambda_func_pagamento = lambda x: 'Cartão' if x['meio_pagamento'] == '2' else 'Dinheiro'
+            pedido = Pedido(usuario=x['nome'],
+                            total = total,
+                            troco = lambda_func_troco(x),
+                            cupom = cupom_salvar,
+                            pagamento = lambda_func_pagamento(x),
+                            ponto_referencia = x['pt_referencia'],
+                            cep = x['cep'],
+                            rua = x['rua'],
+                            numero = x['numero'],
+                            bairro = x['bairro'],
+                            telefone = x['telefone'],
+                            )
+            pedido.save()
+            
+            ItemPedido.objects.bulk_create(
+                ItemPedido(
+                    pedido = pedido,
+                    produto = v['produto'],
+                    quantidade = v['quantidade'],
+                    preco = v['preco'],
+                    adicionais = str(v['adicionais'])
+                ) for v in listaCarrinho
+
+
+            )
+        
+            request.session['carrinho'].clear()
+            request.session.save()
+            return render(request, 'pedido_realizado.html')
+        else:
+            return redirect('/pedidos/finalizar_pedido?erro=1')
+
 def validaCupom(request):
-    pass
+    cupom = request.POST.get('cupom')
+    cupom = CupomDesconto.objects.filter(codigo = cupom)
+    if len(cupom) > 0 and cupom[0].ativo:
+        desconto = cupom[0].desconto
+        total = sum([float(i['preco']) for i in request.session['carrinho']])
+        total_com_desconto = total - ((total*desconto)/100)
+        total = sum([float(i['preco']) for i in request.session['carrinho']])
+        data_json = json.dumps({'status': 0,
+                                'desconto': desconto,
+                                'total_com_desconto': str(total_com_desconto).replace('.', ',')
+        })
+        return HttpResponse()
+    else:
+        return HttpResponse(json.dumps({'status': 1}))
